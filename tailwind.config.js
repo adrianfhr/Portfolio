@@ -11,6 +11,13 @@ module.exports = {
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
+      colors: {
+        primary: '#6C7C88',
+        lightAccent: '#72838A',
+        darkAccent: '#4D6870',
+        darkShade: '#2A282C',
+        lightShade: '#ACDEEC',
+      },
     },
   },
   plugins: [require('@tailwindcss/typography'), require('@tailwindcss/forms')],
