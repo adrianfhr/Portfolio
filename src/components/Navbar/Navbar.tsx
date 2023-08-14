@@ -68,19 +68,35 @@ const Navbar: React.FC = () => {
     const page = router.pathname.split('/')[1] || 'Home';
   
     return (
-      <nav className={`bg z-10 fixed inset-x-0 top-0  font-inter transition-transform duration-800  ${scrollingDown ? '-translate-y-full' : 'translate-y-0'}`}>
-        <div className="container mx-auto lg:w-[70%] bg-lightAccent  lg:mt-10 lg:rounded-full shadow-xl">
-          <div className="lg:flex lg:justify-center items-center py-4 px-6 lg:px-16">
+      <nav className={`w-full z-10 fixed inset-x-0 top-0  font-inter transition-transform duration-800  ${scrollingDown ? '-translate-y-full' : 'translate-y-0'}`}>
+        <div className="container mx-auto md:w-[90%] lg:w-[70%] md:bg-lightAccent md:mt-10 md:rounded-full">
+          <div className="md:flex md:justify-center items-center py-4 md:px-16">
             <div className="flex items-center space-x-4 justify-between">
-              <div className="font-bold text-xl lg:hidden">Adrian Fahri Affandi</div>
-              <button
-                className="lg:hidden px-2 py-1 "
-                onClick={() => setOpen(!open)}
-              >
-                Menu
+                  <button
+                    className={`${
+                      open ? 'fixed right-0' : 'fixed right-0'
+                    } right-0 top-0 mt-[32px] mr-[15px] z-50 flex flex-col w-10 h-6 justify-between cursor-pointer md:hidden`}
+                    onClick={() => {
+                      setOpen(!open)
+                    }}>
+                    <span
+                      className={`h-1 w-6 bg-white rounded-lg transform transition duration-300 ease-in-out ${
+                        open ? 'w-7 bg-white rotate-45 translate-y-2.5' : ''
+                      }`}
+                    />
+                    <span
+                      className={`h-1 w-6 bg-white rounded-lg transition-all duration-300 ease-in-out ${
+                        open ? 'h-0 opacity-0' : 'w-6'
+                      }`}
+                    />
+                    <span
+                      className={`h-1 w-6 bg-white rounded-lg transform transition duration-300 ease-in-out ${
+                        open ? 'w-7 bg-white -rotate-45 -translate-y-2.5' : ''
+                      }`}
+                    />
               </button>
             </div>
-            <div className="hidden lg:flex space-x-4">
+            <div className="hidden md:flex space-x-4">
               {MENU_LIST.map((menu, idx) => (
                 <div
                   key={idx}
@@ -104,22 +120,22 @@ const Navbar: React.FC = () => {
           
           { open && (
             <div
-                className={`bg-blue-200 lg:hidden `}
+                className={`bg-lightAccent md:hidden h-screen w-screen fixed top-0 left-0`}
             >
                 <ul className="space-y-1 p-4">
                 {MENU_LIST.map((menu, idx) => (
                     <li key={idx}>
-                    <a
+                      <a
                         href={menu.href}
                         className={`block px-4 py-2 text-white hover:bg-blue-300 ${
-                        (idx === 0 && page === 'Home') ||
-                        (idx === 1 && page === 'About')
+                          (idx === 0 && page === 'Home') || (idx === 1 && page === 'About')
                             ? 'font-bold'
                             : ''
-                        }`}
-                    >
-                        {menu.text}
-                    </a>
+                        } flex items-center justify-center h-full my-auto`}
+                      >
+                        <span className="flex items-center justify-center h-full">{menu.text}</span>
+                      </a>
+
                     </li>
                 ))}
                 </ul>
