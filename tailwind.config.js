@@ -17,6 +17,10 @@ module.exports = {
         darkAccent: '#4D6870',
         darkShade: '#2A282C',
         lightShade: '#ACDEEC',
+        darkBlue : '#314756',
+      },
+      fontFamily: {
+        'poppins': ['Poppins', 'Arial', 'sans-serif']
       },
     },
   },

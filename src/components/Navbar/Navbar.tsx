@@ -68,8 +68,8 @@ const Navbar: React.FC = () => {
     const page = router.pathname.split('/')[1] || 'Home';
   
     return (
-      <nav className={`w-full z-10 fixed inset-x-0 top-0  font-inter transition-transform duration-800  ${scrollingDown ? '-translate-y-full' : 'translate-y-0'}`}>
-        <div className="container mx-auto md:w-[90%] lg:w-[70%] md:bg-lightAccent md:mt-10 md:rounded-full">
+      <nav className={`w-full z-10 fixed inset-x-0 top-0 font-inter transition-transform duration-800 `}>
+        <div className="container mx-auto md:w-[90%] lg:w-[70%] md:bg-darkShade md:mt-5 md:rounded-full shadow-lightShade shadow-2xl   ">
           <div className="md:flex md:justify-center items-center py-4 md:px-16">
             <div className="flex items-center space-x-4 justify-between">
                   <button
@@ -80,18 +80,18 @@ const Navbar: React.FC = () => {
                       setOpen(!open)
                     }}>
                     <span
-                      className={`h-1 w-6 bg-white rounded-lg transform transition duration-300 ease-in-out ${
-                        open ? 'w-7 bg-white rotate-45 translate-y-2.5' : ''
+                      className={`h-1 w-6 rounded-lg transform transition duration-300 ease-in-out ${
+                        open ? 'w-7 bg-white rotate-45 translate-y-2.5' : 'bg-darkShade'
                       }`}
                     />
                     <span
-                      className={`h-1 w-6 bg-white rounded-lg transition-all duration-300 ease-in-out ${
-                        open ? 'h-0 opacity-0' : 'w-6'
+                      className={`h-1 w-6 rounded-lg transition-all duration-300 ease-in-out ${
+                        open ? 'h-0 opacity-0' : 'w-6 bg-darkShade'
                       }`}
                     />
                     <span
-                      className={`h-1 w-6 bg-white rounded-lg transform transition duration-300 ease-in-out ${
-                        open ? 'w-7 bg-white -rotate-45 -translate-y-2.5' : ''
+                      className={`h-1 w-6  rounded-lg transform transition duration-300 ease-in-out ${
+                        open ? 'w-7 bg-white -rotate-45 -translate-y-2.5' : 'bg-darkShade '
                       }`}
                     />
               </button>
@@ -120,25 +120,28 @@ const Navbar: React.FC = () => {
           
           { open && (
             <div
-                className={`bg-lightAccent md:hidden h-screen w-screen fixed top-0 left-0`}
+              className={`bg-darkShade md:hidden h-screen w-screen fixed top-0 left-0 flex-col lg:flex-row transform ${
+                open ? '-translate-x-0' : '-translate-x-full'
+              } transition-transform duration-300 ease-in-out`}
             >
-                <ul className="space-y-1 p-4">
+              <ul className="space-y-1 p-4 flex flex-col justify-center h-full"> {/* Menambahkan flex dan justify-center */}
                 {MENU_LIST.map((menu, idx) => (
-                    <li key={idx}>
-                      <a
-                        href={menu.href}
-                        className={`block px-4 py-2 text-white hover:bg-blue-300 ${
-                          (idx === 0 && page === 'Home') || (idx === 1 && page === 'About')
-                            ? 'font-bold'
-                            : ''
-                        } flex items-center justify-center h-full my-auto`}
-                      >
-                        <span className="flex items-center justify-center h-full">{menu.text}</span>
-                      </a>
-
-                    </li>
+                  <li key={idx}>
+                    <a
+                      href={menu.href}
+                      className={`block px-4 py-2 text-white hover:bg-blue-300 ${
+                        (idx === 0 && page === 'Home') || (idx === 1 && page === 'About')
+                          ? 'font-bold'
+                          : ''
+                      } flex items-center justify-center h-full my-auto`}
+                    >
+                      <span className="flex items-center justify-center h-full">
+                        {menu.text}
+                      </span>
+                    </a>
+                  </li>
                 ))}
-                </ul>
+              </ul>
             </div>
             )}
         </div>

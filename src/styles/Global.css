@@ -49,39 +49,9 @@
   .prose :where(code):not(:where([class~='not-prose'] *))::after {
     content: '';
   }
-/* 
-  @font-face {
-    font-family: 'Archivo';
-    src: url('../assets/fonts/Archivo-Black.otf');
-  }
 
   @font-face {
-    font-family: 'Varela-Round';
-    src: url('../assets/fonts/VarelaRound-Regular.otf');
+    font-family: 'Poppins';
+    src: url(../assets/fonts/Poppins-Regular.ttf);
   }
-
-  @font-face {
-    font-family: 'Helvatica';
-    src: url('../assets/fonts/Helvetica.otf');
-  }
-
-  @font-face {
-    font-family: 'Montserrat-Medium';
-    src: url('../assets/fonts/Montserrat-Medium.ttf');
-  }
-
-  @font-face {
-    font-family: 'Montserrat-Bold';
-    src: url('../assets/fonts/Montserrat-Bold.ttf');
-  }
-
-  @font-face {
-    font-family: 'OpenSans-Bold';
-    src: url('../assets/fonts/OpenSans-Bold.ttf');
-  }
-
-  @font-face {
-    font-family: 'OpenSans-Regular';
-    src: url('../assets/fonts/OpenSans-Regular.ttf');
-  } */
 } 

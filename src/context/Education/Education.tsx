@@ -1,36 +1,35 @@
-import * as React from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
+import Image from 'next/image'; // Impor next/image
+
+import ITB from '@src/Assets/Images/ITB.png'; // Ubah jalur relatif sesuai dengan struktur direktori
 
 const Education: React.FC = () => {
-    const containerVariants = {
-        hidden: { opacity: 0 },
-        visible: { opacity: 1, transition: { duration: 1, ease: 'easeInOut' } },
-    };
-    
-    return (
-        <section id="education" className=" h-screen w-screen bg-lightShade ">
-        <motion.div
-            className="p-8 z-1 h-full w-full flex flex-row lg:flex-row justify-center"
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-        >
-            <div className=" w-full p-8 mx-4 container items-center justify-between text-center md:flex md:text-left">
-            <motion.div
-                className="w-full"
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0, transition: { delay: 0, duration: 0.8, ease: 'easeInOut' } }}
-            >
-                <motion.h1 className="text-2xl md:text-4xl  font-bold mb-4">
-                Education
-                </motion.h1>
-                
-            </motion.div>
-            
-            </div>
-        </motion.div>
-        </section>
-    );
-}
+  return (
+    <section id="education" className="w-screen bg-gradient-to-b from-white to-lightShade">
+      <div className="p-16 container text-center md:text-left font-poppins">
+        <h2 className="text-2xl md:text-4xl font-bold mb-4">Education</h2>
+        <div className="flex flex-col items-center gap-4">
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0, transition: { delay: 0.5, duration: 1, ease: 'easeInOut' } }}
+          >
+            <Image
+              src={ITB}
+              alt="Logo Kampus"
+              width={100} // Sesuaikan lebar gambar sesuai kebutuhan
+              height={100} // Sesuaikan tinggi gambar sesuai kebutuhan
+            />
+          </motion.div>
+          <div>
+            <p className="text-xl font-semibold">Bandung Institute of Technology</p>
+            <p className="text-lg">System and Information Technology</p>
+            <p className="text-md">2021 - 2025</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
 
 export default Education;
