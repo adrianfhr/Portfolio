@@ -16,7 +16,7 @@ const Contact = () => {
                             <h3 className='text-2xl font-extrabold text-lightShade mb-4 mr-4'>Feel free to reach out.</h3>
                             <FaHandPointRight size={40} className='text-white hidden md:block'/>
                         </div>
-                        <p className='text-lightShade mb-4 text-justify'>I'm actively exploring new opportunities and would love to hear from you. Whether you have inquiries or just want to drop a friendly 'hello, I'm here!'</p>
+                        <p className='text-lightShade mb-4 text-justify'>I&apos;m actively exploring new opportunities and would love to hear from you. Whether you have inquiries or just want to drop a friendly &lsquo;hello, I&apos;m here!&lsquo;</p>
                     </div>
                 </div>
                 <div className='w-full flex justify-center mt-8 md:mt-0'>
