@@ -1,19 +1,23 @@
 import Navbar from '@src/components/Navbar/Navbar'
-import Education from '@src/context/Education/Education'
+import Contact from '@src/context/Contact/Contact'
+import Landing from '@src/context/Landing/Landing'
 import Introduction from '@src/context/Introduction/Introduction'
-import Journey from '@src/context/Journey/Journey'
+import Experience from '@src/context/Experience/Experience'
 import Project from '@src/context/Project/Project'
+import Footer from '@src/components/Footer/Footer'
 
-const Landing: React.FC = () => {
+const Homepage: React.FC = () => {
   return (
-    <div className="h-auto relative" >
+     <>
       <Navbar />
+      <Landing/>
       <Introduction />
-      {/* <Education /> */}
-      <Journey/>
+      <Experience/>
       <Project/>
-    </div>
+      <Contact/>
+      <Footer/>
+    </>
   )
 }
 
-export default Landing
+export default Homepage;

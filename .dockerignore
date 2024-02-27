@@ -1,0 +1,4 @@
+#mengabaikan file yang tidak perlu di upload ke github
+node_modules
+.env
+.next  

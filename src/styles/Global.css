@@ -49,9 +49,21 @@
   .prose :where(code):not(:where([class~='not-prose'] *))::after {
     content: '';
   }
+/* padding x slider */
+  
 
   @font-face {
     font-family: 'Poppins';
-    src: url(../assets/fonts/Poppins-Regular.ttf);
+    src: url(../assets/fonts/poppins-regular.ttf);
   }
+
+
 } 
+
+.slick-slide > div {
+  margin: 0 10px;
+}
+
+.slick-slide {
+  padding: 0 10px;
+}
