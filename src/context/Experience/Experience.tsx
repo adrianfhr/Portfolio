@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image'; // Impor next/image
-import PWITB from '@src/assets/Images/PWITB.png'
-import SRE from '@src/assets/Images/SREITB.png';
+import PWITB from '@src/Assets/Images/PWITB.png'
+import SRE from '@src/Assets/Images/SREITB.png';
 import {IoIosArrowForward } from 'react-icons/io'; 
 
 const Experience: React.FC = () => {

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import PWITB from '@src/assets/images/PWITB.png'; 
-import SRE from '@src/assets/images/SREITB.png';
+import PWITB from '@src/Assets/images/PWITB.png'; 
+import SRE from '@src/Assets/images/SREITB.png';
 import Image from 'next/image';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -8,8 +8,8 @@ import "slick-carousel/slick/slick-theme.css";
 import { motion } from 'framer-motion';
 import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa';  
 import Link from 'next/link';
-import PQMS from '@src/assets/Images/pqms.png';
-import siBiru from '@src/assets/Images/siBiru.png';
+import PQMS from '@src/Assets/Images/pqms.png';
+import siBiru from '@src/Assets/Images/siBiru.png';
 
 const Journey: React.FC = () => {
   const [slidesToShow, setSlidesToShow] = useState(3);
@@ -44,7 +44,7 @@ const Journey: React.FC = () => {
               Description: 'A website showcasing the profile of the Society Renewable Energy ITB and IYREF',
               image: SRE,
               github: 'https://github.com/adrianfhr',
-              website: 'https://sre-itb.org/',
+              website: 'https://sreitb.com',
               tech: ['Next', 'React', 'Express', 'MySQL', 'Prisma']
             },
             {

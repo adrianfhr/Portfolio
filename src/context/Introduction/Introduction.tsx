@@ -1,5 +1,5 @@
 import React from 'react';
-import Drian from '@src/assets/Images/drian.png';
+import Drian from '@src/Assets/Images/drian.png';
 import Image from 'next/image';
 import { TbDownload } from "react-icons/tb";
 
