@@ -14,14 +14,14 @@ const Home: React.FC = () => {
           <Image src={Programmer} alt="Programmer" />
         </div>
         <div className='flex flex-col items-center text-center lg:items-start ml-4'>
-          <h1 className="flex text-2xl md:text-6xl font-bold mb-4">
+          <h1 className="flex text-2xl md:text-6xl font-bold mb-4 md:text-left">
             Hi, I&apos;m Adrian
             <MdWavingHand className="text-4xl md:text-6xl ml-4" color='#FFDAB9 '/>
           </h1>
-          <h1 className="text-3xl font-extrabold mb-4 text-lightShade">
+          <h1 className="text-3xl font-extrabold mb-4 text-lightShade md:text-left">
             An Information Systems and Technology Student
           </h1>
-          <h2 className="text-2xl text-lightAccent">
+          <h2 className="text-2xl text-lightAccent md:text-left">
             at Bandung Institute of Technology
           </h2>
           {/* Social Icons */}

@@ -6,8 +6,8 @@ import Link from 'next/link';
 
 const Contact = () => {
   return (
-    <section id='contact' className="h-screen font-poppins bg-darkShade py-36 px-20">
-            <h2 className='text-4xl md:text-6xl  text-center font-extrabold text-lightShade '>Let&lsquo;s Connect!</h2>
+    <section id='contact' className="min-h-screen font-poppins bg-darkShade py-36 px-20">
+            <h2 className='text-4xl md:text-6xl text-center font-extrabold text-lightShade mb-16 '>Let&lsquo;s Connect!</h2>
 
         <div className='flex items-center h-full justify-center'>
             <div className='md:flex'>
