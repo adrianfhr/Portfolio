@@ -48,7 +48,7 @@ const Experience: React.FC = () => {
               <motion.button
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0, transition: { delay: 0.5, duration: 1, ease: 'easeInOut' } }}
-                className='font-inter flex flex-col md:flex-row px-16 lg:px-32 mb-10'
+                className='font-inter flex flex-col md:flex-row px-16 lg:px-32 mb-10 w-full'
                 key={idx}
                 onClick={() => toggleDropdown(idx)}
               >
