@@ -2,7 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import { MdWavingHand } from "react-icons/md";
 import { FaWhatsapp, FaGithub, FaEnvelope, FaLinkedin, FaArrowDown} from 'react-icons/fa';
-import Programmer from '@src/assets/images/programmer.png';
+import Programmer from '@src/assets/Images/programmer.png';
 import Link from 'next/link';
 
 const Landing: React.FC = () => {

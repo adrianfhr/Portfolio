@@ -8,8 +8,8 @@ import "slick-carousel/slick/slick-theme.css";
 import { motion } from 'framer-motion';
 import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa';  
 import Link from 'next/link';
-import PQMS from '@src/assets/images/pqms.png';
-import siBiru from '@src/assets/images/siBiru.png';
+import PQMS from '@src/assets/Images/pqms.png';
+import siBiru from '@src/assets/Images/siBiru.png';
 
 const Journey: React.FC = () => {
   const [slidesToShow, setSlidesToShow] = useState(3);
