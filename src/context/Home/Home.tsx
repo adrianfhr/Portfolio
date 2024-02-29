@@ -5,7 +5,7 @@ import { FaWhatsapp, FaGithub, FaEnvelope, FaLinkedin, FaArrowDown} from 'react-
 import Programmer from '@src/Assets/Images/programmer.png';
 import Link from 'next/link';
 
-const Landing: React.FC = () => {
+const Home: React.FC = () => {
 
   return (
     <section id="home" className="font-poppins min-h-screen bg-darkShade text-white p-8">
@@ -26,16 +26,16 @@ const Landing: React.FC = () => {
           </h2>
           {/* Social Icons */}
           <div className='flex mt-4'>
-            <Link href="https://wa.me/your-whatsapp-number" target="_blank" rel="noopener noreferrer" className="mr-4 p-2 rounded-full hover:bg-lightShade hover:text-black">
+            <Link href="https://wa.me/6281315080434" target="_blank" rel="noopener noreferrer" className="mr-4 p-2 rounded-full hover:bg-lightShade hover:text-black">
               <FaWhatsapp size={32} />
             </Link>
-            <Link href="https://github.com/your-github-username" target="_blank" rel="noopener noreferrer" className="mr-4 p-2 rounded-full hover:bg-lightShade hover:text-black">
+            <Link href="https://github.com/adrianfhr" target="_blank" rel="noopener noreferrer" className="mr-4 p-2 rounded-full hover:bg-lightShade hover:text-black">
               <FaGithub size={32}/>
             </Link>
-            <Link href="mailto:your-email@example.com" className="mr-4 p-2 rounded-full hover:bg-lightShade hover:text-black">
+            <Link href="mailto:adrianfhrr@gmail.com" className="mr-4 p-2 rounded-full hover:bg-lightShade hover:text-black">
               <FaEnvelope size={32}/>
             </Link>
-            <Link href="https://www.linkedin.com/in/your-linkedin-profile" target="_blank" rel="noopener noreferrer" className='mr-4 p-2 rounded-full hover:bg-lightShade hover:text-black'>
+            <Link href="https://www.linkedin.com/in/adrianfhr" target="_blank" rel="noopener noreferrer" className='mr-4 p-2 rounded-full hover:bg-lightShade hover:text-black'>
               <FaLinkedin size={32}/>
             </Link>
           </div>
@@ -86,4 +86,4 @@ const Landing: React.FC = () => {
   );
 };
 
-export default Landing;
+export default Home;

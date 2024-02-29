@@ -43,7 +43,7 @@ const Journey: React.FC = () => {
               Title: 'SRE ITB',
               Description: 'A website showcasing the profile of the Society Renewable Energy ITB and IYREF',
               image: SRE,
-              github: 'https://github.com/adrianfhr',
+              github: 'https://github.com/adrianfhr/SRE-ITB-frontend',
               website: 'https://sreitb.com',
               tech: ['Next', 'React', 'Express', 'MySQL', 'Prisma']
             },
@@ -51,25 +51,24 @@ const Journey: React.FC = () => {
               Title: 'Patient Queue Management System',
               Description: ' PQMS is a  Web-Based Application for monitoring patient queues in hospitals  and healthcare Services.',
               image: PQMS,
-              github: 'https://pqms.com',
-              website: null,
+              github: 'https://github.com/adrianfhr/PQMS-Hospital',
+              website: 'https://pqms-hospital.vercel.app/',
               tech: ['React', 'Node.js', 'MongoDB', 'Express']
             },
             {
               Title: 'siBiru ITB Shuttle Tracker',
               Description: ' SiBiru is the ITB shuttle tracking app providing real-time information on shuttle locations and arrival times at key points in the Institut Teknologi Bandung (ITB) Jatinangor',
               image: siBiru,
-              github: 'https://github.com/username/project3',
-              website: 'https://project3.example.com',
+              github: 'https://github.com/adrianfhr/SiBiru-ITB-ShuttleTracker',
+              website: 'https://shuttle-tracker-itb-frontend.vercel.app/',
               tech: ['React', 'Node.js', 'MongoDB']
             },
             {
               Title: 'Perayaan Wisuda ITB April 2023',
               Description: 'A website showcasing information about the April 2023 graduation at ITB.',           
-
               image: PWITB,
-              github: 'https://github.com/username/project4',
-              website: 'https://project4.example.com',
+              github: 'https://github.com/adrianfhr/WisudaApril2023-frontend',
+              website: 'https://wisuda-april2023-frontend.vercel.app/',
               tech: ['React', 'Node.js', 'MongoDB']
             },
       ];

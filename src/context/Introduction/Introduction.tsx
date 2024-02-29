@@ -2,6 +2,7 @@ import React from 'react';
 import Drian from '@src/Assets/Images/drian.png';
 import Image from 'next/image';
 import { TbDownload } from "react-icons/tb";
+import Link from 'next/link';
 
 const Introduction: React.FC = () => {
 
@@ -15,7 +16,7 @@ const Introduction: React.FC = () => {
             </div>
             <div className='w-full p-8' >
               <h1 className="text-2xl md:text-4xl text-center md:text-left font-bold mb-4 text-lightShade">
-              Adrian Fahri Affandi
+                Adrian Fahri Affandi
               </h1>
               <p className="text-sm md:text-base lg:text-xl  text-justify">
                 I am <span className='text-lightShade'>Software Engineer</span>, a student at the Bandung Institute of Technology (ITB),
@@ -23,11 +24,13 @@ const Introduction: React.FC = () => {
                 determined to create innovative technological solutions.
               </p>
               <div className="mt-8 flex flex-col md:flex-row items-center gap-2 md:text-xl">
-                <button
-                  className="flex bg-lightShade hover:bg-lightAccent hover:text-lightShade text-black py-2 px-4 rounded-md "
-                  >
-                  My Resume <TbDownload className='ml-2 m-1'/>
-                </button>
+                <Link href='/CV_AdrianFahriAffandi_KP.pdf'>
+                  <button
+                    className="flex bg-lightShade hover:bg-lightAccent hover:text-lightShade text-black py-2 px-4 rounded-md "
+                    >
+                    My Resume <TbDownload className='ml-2 m-1'/>
+                  </button>
+                </Link>
               </div>
             </div>
       </div>

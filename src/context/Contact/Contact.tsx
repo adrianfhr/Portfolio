@@ -2,6 +2,7 @@ import React from 'react';
 import { MdEmail } from "react-icons/md";
 import { FaHandPointRight,FaLinkedin } from "react-icons/fa";
 import { FaMapLocationDot } from "react-icons/fa6";
+import Link from 'next/link';
 
 const Contact = () => {
   return (
@@ -22,21 +23,27 @@ const Contact = () => {
                 <div className='w-full flex justify-center mt-8 md:mt-0'>
                     <div className=''>
                         <div className='flex text-lightShade'>
-                            <FaMapLocationDot size={40}/>
+                            <Link href={'https://maps.app.goo.gl/5C8co22nfkGGHFBm7'} target="_blank" rel="noopener noreferrer">
+                                <FaMapLocationDot size={40}/>
+                            </Link>
                             <div>
                                 <h3 className='text-2xl font-extrabold text-lightShade ml-4'>Location</h3>
                                 <p className='text-xs font-extrabold text-lightShade mb-4 ml-4'>Bandung, Indonesia</p>
                             </div>
                         </div>
                         <div className='flex text-lightShade'>
-                            <MdEmail size={40}/>
+                            <Link href={'mailto:adrianfhrr@gmail.com'} target="_blank" rel="noopener noreferrer">
+                                <MdEmail size={40}/>
+                            </Link>
                             <div>
                                 <h3 className='text-2xl font-extrabold text-lightShade ml-4'>Email</h3>
                                 <p className='text-xs font-extrabold text-lightShade mb-4 ml-4'>adrianfhrr@gmail.com</p>
                             </div>
                         </div>
                         <div className='flex text-lightShade'>
-                            <FaLinkedin size={40}/>
+                            <Link href={'https://www.linkedin.com/in/adrianfhr'} target="_blank" rel="noopener noreferrer">
+                                <FaLinkedin size={40}/>
+                            </Link>
                             <div>
                                 <h3 className='text-2xl font-extrabold text-lightShade ml-4'>LinkedIn</h3>
                                 <p className='text-xs font-extrabold text-lightShade mb-4 ml-4'>adrianfhr</p>

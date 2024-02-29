@@ -1,6 +1,6 @@
 import Navbar from '@src/components/Navbar/Navbar'
 import Contact from '@src/context/Contact/Contact'
-import Landing from '@src/context/Landing/Landing'
+import Home from '@src/context/Home/Home'
 import Introduction from '@src/context/Introduction/Introduction'
 import Experience from '@src/context/Experience/Experience'
 import Project from '@src/context/Project/Project'
@@ -10,7 +10,7 @@ const Homepage: React.FC = () => {
   return (
      <>
       <Navbar />
-      <Landing/>
+      <Home/>
       <Introduction />
       <Experience/>
       <Project/>
