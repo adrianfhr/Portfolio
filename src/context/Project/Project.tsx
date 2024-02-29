@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import PWITB from '@src/Assets/images/PWITB.png'; 
-import SRE from '@src/Assets/images/SREITB.png';
+import PWITB from '@src/Assets/Images/PWITB.png'; 
+import SRE from '@src/Assets/Images/SREITB.png';
 import Image from 'next/image';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { motion } from 'framer-motion';
 import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa';  
 import Link from 'next/link';
 import PQMS from '@src/Assets/Images/pqms.png';
