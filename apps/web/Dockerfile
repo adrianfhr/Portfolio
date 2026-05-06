@@ -33,6 +33,9 @@ COPY --from=build /app/apps/web/dist ./dist
 # Copy ALL dependencies (includes picocolors and other runtime deps)
 COPY --from=build /app/apps/web/node_modules ./node_modules
 
+# Copy root node_modules for hoisted workspace dependencies (astro, piccolore, etc.)
+COPY --from=build /app/node_modules /app/node_modules
+
 # Copy package.json
 COPY --from=build /app/apps/web/package.json ./package.json
 
