@@ -3,7 +3,9 @@ import type { APIRoute } from 'astro';
 const backendBaseUrl = import.meta.env.API_BASE_URL ?? 'http://127.0.0.1:8000';
 
 async function proxy(request: Request, path: string[]) {
-  const targetUrl = new URL(path.join('/'), backendBaseUrl.endsWith('/') ? backendBaseUrl : `${backendBaseUrl}/`);
+  // Astro route is /api/*; backend also expects /api/*
+  const backendPath = ['api', ...path].join('/');
+  const targetUrl = new URL(backendPath, backendBaseUrl.endsWith('/') ? backendBaseUrl : `${backendBaseUrl}/`);
   targetUrl.search = new URL(request.url).search;
 
   const headers = new Headers(request.headers);
@@ -21,7 +23,17 @@ async function proxy(request: Request, path: string[]) {
     redirect: 'manual',
   });
 
-  const responseHeaders = new Headers(response.headers);
+  const responseHeaders = new Headers();
+  // Forward all headers, preserving multiple Set-Cookie values
+  response.headers.forEach((value, key) => {
+    if (key === 'set-cookie') {
+      const cookies = response.headers.getSetCookie ? response.headers.getSetCookie() : [value];
+      cookies.forEach((cookie) => responseHeaders.append('set-cookie', cookie));
+    } else {
+      responseHeaders.set(key, value);
+    }
+  });
+
   responseHeaders.delete('content-encoding');
   responseHeaders.delete('transfer-encoding');
 

@@ -1,4 +1,7 @@
 ---
+import AuthButton from '../modules/auth/components/AuthButton';
+import RateLimitBadge from '../modules/auth/components/RateLimitBadge';
+
 const {
   title = 'Interactive AI Engineering Portfolio',
   description = 'Astro shell for the portfolio platform and FastAPI gateway.',
@@ -69,6 +72,32 @@ const {
 
       .shell {
         position: relative;
+      }
+
+      .navbar {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        padding: 0.75rem 1.25rem;
+        border-bottom: 1px solid var(--border);
+        background: rgba(7, 17, 29, 0.72);
+        backdrop-filter: blur(18px);
+      }
+
+      .navbar-brand {
+        font-weight: 700;
+        font-size: 1rem;
+        letter-spacing: -0.02em;
+      }
+
+      .navbar-actions {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
       }
 
       .hero {
@@ -367,6 +396,28 @@ const {
     </style>
   </head>
   <body>
+    <nav class="navbar">
+      <a href="/" class="navbar-brand">Portfolio</a>
+      <div class="navbar-actions">
+        <RateLimitBadge client:load />
+        <AuthButton client:load />
+      </div>
+    </nav>
     <slot />
+    <script is:inline>
+      // Capture rate limit headers from fetch responses for UI display
+      const originalFetch = window.fetch;
+      window.fetch = async function(...args) {
+        const response = await originalFetch.apply(this, args);
+        const remaining = response.headers.get('X-RateLimit-Remaining');
+        const policy = response.headers.get('X-RateLimit-Policy');
+        if (remaining !== null) {
+          window.__lastRateLimitRemaining = remaining;
+          window.__lastRateLimitPolicy = policy || '';
+          window.dispatchEvent(new Event('rate-limit-update'));
+        }
+        return response;
+      };
+    </script>
   </body>
 </html>
