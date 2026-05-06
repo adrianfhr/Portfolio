@@ -30,7 +30,7 @@ ENV NODE_ENV=production
 # Copy built output
 COPY --from=build /app/apps/web/dist ./dist
 
-# Copy node_modules (includes picocolors and all runtime deps)
+# Copy ALL dependencies (includes picocolors and other runtime deps)
 COPY --from=build /app/apps/web/node_modules ./node_modules
 
 # Copy package.json
