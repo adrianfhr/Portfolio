@@ -25,4 +25,4 @@ COPY --from=build /app/apps/web/package.json ./package.json
 
 EXPOSE 3000
 
-CMD ["npm", "run", "preview", "--", "--host", "0.0.0.0", "--port", "3000"]
+CMD ["node", "./dist/server/entry.mjs"]
