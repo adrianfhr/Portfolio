@@ -1,0 +1,15 @@
+{
+  "name": "interactive-ai-portfolio",
+  "private": true,
+  "version": "0.1.0",
+  "workspaces": [
+    "apps/web"
+  ],
+  "scripts": {
+    "dev:web": "npm run dev --workspace @portfolio/web",
+    "build:web": "npm run build --workspace @portfolio/web",
+    "start:web": "npm run preview --workspace @portfolio/web",
+    "dev:api": "uvicorn app.main:app --reload --host 0.0.0.0 --port 8000 --app-dir apps/api",
+    "check:api": "python -m compileall apps/api/app"
+  }
+}

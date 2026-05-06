@@ -1,0 +1,21 @@
+services:
+  api:
+    image: ghcr.io/${GITHUB_REPOSITORY_OWNER:-your-org}/interactive-ai-portfolio-api:latest
+    environment:
+      APP_NAME: Interactive AI Engineering Portfolio API
+      APP_ENV: production
+      CORS_ORIGINS: https://portfolio.example.com
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+
+  web:
+    image: ghcr.io/${GITHUB_REPOSITORY_OWNER:-your-org}/interactive-ai-portfolio-web:latest
+    environment:
+      API_BASE_URL: http://api:8000
+      NEXT_PUBLIC_APP_NAME: Interactive AI Engineering Portfolio
+    ports:
+      - "3000:3000"
+    depends_on:
+      - api
+    restart: unless-stopped

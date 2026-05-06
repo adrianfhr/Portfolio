@@ -1,0 +1,161 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const gatewayBaseUrl = import.meta.env.API_BASE_URL ?? 'http://127.0.0.1:8000';
+
+async function fetchHealth(path: string) {
+  const response = await fetch(new URL(path, gatewayBaseUrl), {
+    headers: {
+      accept: 'application/json',
+    },
+    cache: 'no-store',
+  });
+
+  if (!response.ok) {
+    throw new Error(`Gateway returned ${response.status} for ${path}`);
+  }
+
+  return response.json() as Promise<Record<string, unknown>>;
+}
+
+let health: Record<string, unknown> | null = null;
+let readiness: Record<string, unknown> | null = null;
+let liveness: Record<string, unknown> | null = null;
+let error: string | null = null;
+
+try {
+  [health, readiness, liveness] = await Promise.all([
+    fetchHealth('/health'),
+    fetchHealth('/health/ready'),
+    fetchHealth('/health/live'),
+  ]);
+} catch (cause) {
+  error = cause instanceof Error ? cause.message : 'Gateway health is unavailable';
+}
+
+const status = (health?.status as string | undefined) ?? 'unavailable';
+const readinessStatus = (readiness?.status as string | undefined) ?? 'not checked';
+const livenessStatus = (liveness?.status as string | undefined) ?? 'not checked';
+const uptime = (liveness?.uptime_seconds as number | undefined) ?? 0;
+---
+
+<BaseLayout>
+  <main class="shell">
+    <section class="hero">
+      <div class="eyebrow">Interactive AI Engineering Portfolio & Sandbox</div>
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <h1>Astro shell, FastAPI gateway, real deployment shape.</h1>
+          <p>
+            The first implementation slice is intentionally narrow: a polished public shell, a
+            minimal API gateway, and the container and CI scaffolding needed to keep the rest of
+            the platform honest.
+          </p>
+
+          <div class="actions">
+            <a class="button primary" href={`${gatewayBaseUrl}/health`} target="_blank" rel="noreferrer">
+              Open gateway health
+            </a>
+            <a class="button" href={`${gatewayBaseUrl}/docs`} target="_blank" rel="noreferrer">
+              Open OpenAPI docs
+            </a>
+          </div>
+        </div>
+
+        <aside class="hero-panel">
+          <div class="panel-title">
+            <span>Gateway snapshot</span>
+            <span class:list={["status-dot", status === 'ready' || status === 'ok' || status === 'alive' ? '' : status === 'degraded' ? 'degraded' : 'down']} />
+          </div>
+
+          <div class="status-copy">
+            <p class="status-value">{status}</p>
+            <div class="status-meta">
+              <span>
+                Backend: <strong>{gatewayBaseUrl}</strong>
+              </span>
+              <span>
+                Readiness: <strong>{readinessStatus}</strong>
+              </span>
+              <span>
+                Liveness: <strong>{livenessStatus}</strong>
+              </span>
+              {error ? <span class="error">{error}</span> : null}
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="stack-grid" aria-label="Implementation overview">
+      <article class="card span-7">
+        <h2>Implementation slice</h2>
+        <p>
+          This repository now has a runnable starting point: the shell can talk to the gateway,
+          the gateway exposes health routes, Docker builds both services, and CI validates both
+          codepaths before publishing container images.
+        </p>
+        <div class="tag-row">
+          <span class="tag">Astro</span>
+          <span class="tag">FastAPI</span>
+          <span class="tag">Docker Compose</span>
+          <span class="tag">GitHub Actions</span>
+        </div>
+      </article>
+
+      <article class="card span-5">
+        <h2>Gateway state</h2>
+        <ul class="list">
+          <li>
+            <span>Health</span>
+            <strong class="mono">{status}</strong>
+          </li>
+          <li>
+            <span>Readiness</span>
+            <strong class="mono">{readinessStatus}</strong>
+          </li>
+          <li>
+            <span>Uptime</span>
+            <strong class="mono">{uptime}s</strong>
+          </li>
+        </ul>
+      </article>
+
+      <article class="card span-4">
+        <h3>Monorepo</h3>
+        <p>
+          <strong>apps/web + apps/api</strong>
+          <br />
+          One repository, separate runtimes, shared deployment surface.
+        </p>
+      </article>
+
+      <article class="card span-4">
+        <h3>Frontend shell</h3>
+        <p>
+          <strong>Astro</strong>
+          <br />
+          Server-rendered landing shell with an API proxy route.
+        </p>
+      </article>
+
+      <article class="card span-4">
+        <h3>Gateway</h3>
+        <p>
+          <strong>FastAPI</strong>
+          <br />
+          Health endpoints and the first stable backend contract.
+        </p>
+      </article>
+
+      <article class="card span-4">
+        <h3>Delivery</h3>
+        <p>
+          <strong>Docker + GHCR</strong>
+          <br />
+          Compose locally, build images in CI, publish on main.
+        </p>
+      </article>
+    </section>
+  </main>
+</BaseLayout>
