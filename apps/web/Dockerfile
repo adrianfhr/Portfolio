@@ -20,7 +20,7 @@ WORKDIR /app/apps/web
 # Build the app
 RUN npm run build
 
-# Production stage - use same node image, not alpine for better compatibility
+# Production stage
 FROM node:24-alpine AS runner
 
 WORKDIR /app/apps/web
