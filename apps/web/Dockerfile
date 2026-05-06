@@ -19,7 +19,10 @@ WORKDIR /app/apps/web
 
 ENV NODE_ENV=production
 
+# Copy built app
 COPY --from=build /app/apps/web/dist ./dist
+
+# Copy ALL node_modules (picocolors dan deps lain ada di sini)
 COPY --from=build /app/apps/web/node_modules ./node_modules
 COPY --from=build /app/apps/web/package.json ./package.json
 
