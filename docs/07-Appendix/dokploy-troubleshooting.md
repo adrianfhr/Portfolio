@@ -4,7 +4,65 @@
 
 ---
 
-## 1. Masalah: Port Conflict Dokploy (3000) vs Web App (3000)
+## 🔴 MASALAH KRITIS: API Tidak Bisa Diakses (Connection Refused)
+
+### Gejala
+```bash
+curl http://localhost:8000/health
+curl: (7) Failed to connect to localhost port 8000
+```
+
+### Penyebab
+Dokploy menjalankan container dalam **Docker Swarm mode**, bukan docker-compose biasa. Container tidak otomatis bind ke port host VPS. Port harus di-expose via **Dokploy Domain/Port mapping**.
+
+### Solusi Langsung
+
+#### Opsi 1: Via Dokploy Domain (RECOMMENDED)
+Tambahkan domain di Dokploy panel untuk app `portfolio-api`:
+1. Buka app `portfolio-api` → tab **Domains**
+2. Klik **Add Domain**
+3. Isi:
+   - Domain: `api.yourdomain.com` (atau subdomain)
+   - Port: `8000`
+   - HTTPS: Enable
+4. Save
+
+#### Opsi 2: Via Dokploy Port Mapping (IP Langsung)
+Kalau mau akses via IP tanpa domain:
+1. Buka app `portfolio-api` → tab **Advanced**
+2. Cari **Port Mapping** atau **Expose Port**
+3. Tambahkan: `8000:8000` (host:container)
+4. Save & Redeploy
+
+#### Opsi 3: Cek Container Running
+```bash
+# Lihat container yang jalan
+sudo docker ps
+
+# Lihat service Dokploy
+sudo docker service ls
+
+# Lihat logs API
+sudo docker service logs -f portfolio-api-ez2jum
+
+# Cek container detail (ganti <container_id> dengan ID dari docker ps)
+sudo docker inspect <container_id> | grep -A 20 "NetworkSettings"
+```
+
+#### Opsi 4: Cek dari Dalam Container
+```bash
+# Masuk ke container API
+sudo docker exec -it $(sudo docker ps -q -f name=portfolio-api) sh
+
+# Dari dalam container, test
+python -c "import urllib.request; print(urllib.request.urlopen('http://localhost:8000/health').read())"
+```
+
+Kalau dari dalam container bisa, berarti app jalan tapi port tidak di-expose ke host.
+
+---
+
+## 🔴 MASALAH: Port Conflict Dokploy (3000) vs Web App (3000)
 
 ### ❌ Masalah
 Dokploy panel berjalan di `http://157.10.161.40:3000`. Kalau web app juga expose port 3000, akan terjadi konflik.
@@ -28,7 +86,7 @@ User → Domain (portfolio.yourdomain.com) → Traefik (Dokploy) → Container W
 
 ---
 
-## 2. Masalah: Web App REPLICAS 0/1 (Container Restart Terus)
+## 🔴 MASALAH: Web App REPLICAS 0/1 (Container Restart Terus)
 
 ### ❌ Error
 ```
@@ -53,55 +111,20 @@ Karena Astro menggunakan `@astrojs/node` adapter dengan mode `standalone`, build
 
 ---
 
-## 3. Masalah: API Tidak Bisa Di-hit dari Luar
+## 🔴 MASALAH: CORS Error (API tidak bisa diakses dari Web)
 
 ### ❌ Gejala
-- API running (log uvicorn OK)
-- Tapi request dari browser/postman ke API timeout / connection refused
+Browser console menunjukkan CORS error saat web app fetch ke API.
 
-### ✅ Checklist
-
-#### 3.1 Cek Port Terbuka
-```bash
-# Di VPS
-sudo ss -tlnp | grep 8000
-# atau
-sudo netstat -tlnp | grep 8000
-```
-
-Kalau tidak muncul, berarti port tidak ter-expose.
-
-#### 3.2 Cek Firewall
-```bash
-sudo ufw status
-# atau
-sudo iptables -L -n | grep 8000
-```
-
-Kalau firewall block, buka port:
-```bash
-sudo ufw allow 8000/tcp
-```
-
-#### 3.3 Cek Dokploy Domain/Port Mapping
-Di Dokploy panel, untuk app `portfolio-api`:
-1. Tab **Domains**
-2. Add Domain: `api.portfolio.yourdomain.com`
-3. Port: `8000`
-4. Enable HTTPS
-
-**Atau** kalau akses via IP:
-- Pastikan di Dokploy app settings, port mapping expose `8000:8000`
-
-#### 3.4 Cek CORS
+### ✅ Fix
 Pastikan environment variable `CORS_ORIGINS` di Dokploy app `portfolio-api` mencakup domain web:
 ```
-CORS_ORIGINS=https://portfolio.yourdomain.com,http://localhost:3000
+CORS_ORIGINS=https://portfolio.yourdomain.com,https://www.portfolio.yourdomain.com
 ```
 
 ---
 
-## 4. Arsitektur Network yang Benar
+## 1. Arsitektur Network yang Benar
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -135,7 +158,7 @@ CORS_ORIGINS=https://portfolio.yourdomain.com,http://localhost:3000
 
 ---
 
-## 5. Quick Fix Commands
+## 2. Quick Fix Commands
 
 ### Restart semua service
 ```bash
@@ -156,9 +179,15 @@ sudo docker ps
 sudo docker inspect <container_id> --format='{{.State.Health.Status}}'
 ```
 
+### Cek network
+```bash
+sudo docker network ls
+sudo docker network inspect dokploy-network
+```
+
 ---
 
-## 6. Environment Variables Wajib di Dokploy
+## 3. Environment Variables Wajib di Dokploy
 
 ### API App (`portfolio-api`)
 ```
@@ -177,14 +206,39 @@ NODE_ENV=production
 
 ---
 
-## 7. Checklist Deploy Berhasil
+## 4. Checklist Deploy Berhasil
 
 - [ ] Dokploy panel bisa diakses di `http://157.10.161.40:3000`
 - [ ] GitHub App terinstall dan repository terhubung
 - [ ] App `portfolio-api` dan `portfolio-web` terbuat
-- [ ] Domain ditambahkan untuk masing-masing app
+- [ ] Domain ditambahkan untuk masing-masing app (atau port mapping di-expose)
 - [ ] Environment variables diisi
 - [ ] Build berhasil (cek logs)
-- [ ] API bisa diakses di `https://api.yourdomain.com/health`
-- [ ] Web bisa diakses di `https://portfolio.yourdomain.com`
+- [ ] API bisa diakses (via domain atau port mapping)
+- [ ] Web bisa diakses (via domain atau port mapping)
 - [ ] Web bisa hit API (cek browser network tab)
+
+---
+
+## 5. Dokploy-specific Notes
+
+### Port Mapping di Dokploy
+Dokploy menggunakan Docker Swarm, bukan docker-compose. Port mapping berbeda:
+
+```bash
+# Docker Swarm service port publish
+sudo docker service update --publish-add published=8000,target=8000 portfolio-api-ez2jum
+```
+
+Atau lebih mudah via panel Dokploy:
+1. Buka app
+2. Tab **Advanced**
+3. Cari **Ports** atau **Expose**
+4. Tambahkan port yang mau di-publish
+
+### Internal Communication
+Kalau web dan API di Docker Swarm yang sama, mereka bisa komunikasi via service name:
+```
+http://portfolio-api-ez2jum:8000  # internal
+```
+Tapi untuk SSR fetch dari web container, gunakan domain publik atau internal service name.
