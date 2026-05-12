@@ -1,0 +1,36 @@
+---
+import SectionHead from './SectionHead.astro';
+import MonoLabel from './MonoLabel.astro';
+
+const details = [
+  { k: 'education',   v: 'B.Eng Information System & Technology', s: 'Institut Teknologi Bandung (ITB) · GPA 3.44' },
+  { k: 'previously',  v: 'Backend Dev → AI Engineer',             s: 'Synapsis & Telkom Indonesia · 2024–present'  },
+  { k: 'currently',   v: 'AI Engineer',                           s: 'Edge AI + LLM systems, Synapsis'             },
+  { k: 'looking for', v: 'AI / Backend roles',                    s: 'Edge AI · LLM infra · backend systems'       },
+];
+---
+
+<section id="about" class="py-[60px] px-10 max-w-content mx-auto">
+  <SectionHead n="04" title="About" sub="The short version" />
+
+  <div class="grid grid-cols-[minmax(0,1fr)_380px] gap-16">
+    <div class="font-serif text-[22px] leading-[1.5] text-ink-1 tracking-[-0.005em] [text-wrap:pretty]">
+      I graduated from ITB in 2025 with a B.Eng in Information System &amp; Technology. Over the
+      past year I've been shipping production AI systems at Synapsis — from edge-deployed face
+      recognition on Raspberry Pi&nbsp;5 + Hailo to multi-agent LLM pipelines. I'm{' '}
+      <em class="text-ink-2">most useful</em> at the intersection of ML and backend: designing
+      the services that turn a trained model into something reliable, low-latency, and
+      on-call-able.
+    </div>
+
+    <div class="grid gap-4">
+      {details.map((r) => (
+        <div class="border-t border-rule pt-[10px]">
+          <MonoLabel>{r.k}</MonoLabel>
+          <div class="text-[15px] text-ink-1 mt-1">{r.v}</div>
+          <div class="text-[13px] text-ink-3 mt-[2px]">{r.s}</div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
