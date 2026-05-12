@@ -1,0 +1,171 @@
+@import "tailwindcss";
+
+/* ─── Design-System CSS Custom Properties ─────────────────────────────────── */
+/* Defined at :root so TweaksPanel can override them at runtime via            */
+/* document.documentElement.style.setProperty('--accent', ...)                */
+:root {
+  --bg:      oklch(0.985 0.005 75);   /* warm off-white               */
+  --panel:   oklch(0.965 0.008 75);   /* slightly deeper cream        */
+  --ink-1:   oklch(0.22  0.012 65);   /* near-black, warm             */
+  --ink-2:   oklch(0.45  0.012 65);   /* mid                          */
+  --ink-3:   oklch(0.62  0.010 65);   /* muted label                  */
+  --rule:    oklch(0.88  0.010 70);   /* hairline                     */
+  --accent:  oklch(0.72  0.14  65);   /* amber default                */
+  --display: "Geist", system-ui, -apple-system, sans-serif;
+  --serif:   "Newsreader", Georgia, serif;
+  --mono:    "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --density: 1;
+}
+
+/* ─── Tailwind v4 Theme Tokens ────────────────────────────────────────────── */
+/* `@theme inline` maps CSS custom properties to Tailwind utilities without    */
+/* emitting duplicate `:root` vars. Dynamic — when TweaksPanel mutates         */
+/* --accent or --display, every utility that references them updates live.     */
+/* This is the Tailwind v4 equivalent of tailwind.config.mjs `theme.extend`.  */
+@theme inline {
+  /* Colors */
+  --color-bg:    var(--bg);
+  --color-panel: var(--panel);
+  --color-ink-1: var(--ink-1);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-rule:  var(--rule);
+  --color-accent: var(--accent);
+
+  /* Fonts — overrides Tailwind's built-in --font-serif / --font-mono defaults */
+  --font-display: var(--display);
+  --font-serif:   var(--serif);
+  --font-mono:    var(--mono);
+
+  /* Layout — max-w-content maps to the 1180px content width used site-wide */
+  --max-width-content: 1180px;
+
+  /* Terminal widget — fixed dark palette regardless of page theme */
+  --color-terminal-bg:     oklch(0.18 0.010 65);
+  --color-terminal-text:   oklch(0.88 0.008 75);
+  --color-terminal-muted:  oklch(0.60 0.008 65);
+  --color-terminal-border: oklch(0.28 0.010 65);
+}
+
+/* ─── Dark Mode Variables ─────────────────────────────────────────────────── */
+/* Applied when Layout.astro's inline script sets data-theme="dark" on <html>. */
+/* Only background / ink / rule override — accent and fonts stay user-tunable.  */
+[data-theme="dark"] {
+  --bg:    oklch(0.13 0.010 65);    /* deep warm charcoal      */
+  --panel: oklch(0.18 0.012 65);    /* slightly lighter dark   */
+  --ink-1: oklch(0.92 0.008 75);    /* near-white, warm        */
+  --ink-2: oklch(0.68 0.010 70);    /* mid light               */
+  --ink-3: oklch(0.48 0.008 65);    /* muted label             */
+  --rule:  oklch(0.26 0.010 65);    /* hairline separator      */
+}
+
+/* ─── Global Base Styles ──────────────────────────────────────────────────── */
+html,
+body {
+  background: var(--bg);
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--display);
+  color: var(--ink-1);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "ss01", "cv01";
+}
+
+::selection {
+  background: color-mix(in oklch, var(--accent) 35%, transparent);
+}
+
+a {
+  color: inherit;
+}
+
+a:hover {
+  color: var(--ink-1);
+}
+
+button:hover {
+  filter: brightness(0.96);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* ─── Shared Component Helpers ────────────────────────────────────────────── */
+/* Used when Tailwind arbitrary values can't express complex CSS functions.    */
+
+/* Dot pulse ring — receives --dot-color from inline style on the element.    */
+.dot-indicator {
+  background: var(--dot-color, var(--accent));
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--dot-color, var(--accent)) 18%, transparent);
+}
+
+/* Project card visual placeholder stripe pattern */
+.project-visual-bg {
+  background: repeating-linear-gradient(
+    135deg,
+    var(--panel) 0 8px,
+    color-mix(in oklch, var(--panel) 70%, var(--bg)) 8px 16px
+  );
+}
+
+/* TopBar frosted-glass background */
+.topbar-glass {
+  background: color-mix(in oklch, var(--bg) 88%, transparent);
+  backdrop-filter: saturate(140%) blur(10px);
+  -webkit-backdrop-filter: saturate(140%) blur(10px);
+}
+
+/* Typing indicator animation used in ChatBot */
+@keyframes typing-bounce {
+  0%, 80%, 100% { opacity: 0.25; transform: translateY(0);    }
+  40%           { opacity: 1;    transform: translateY(-2px); }
+}
+
+/* Terminal cursor blink animation */
+@keyframes blink {
+  0%, 50%  { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+.cursor-blink {
+  animation: blink 1s steps(2) infinite;
+}
+
+/* Timeline dot used in Experience section */
+.timeline-dot {
+  width: 15px;
+  height: 15px;
+  border-radius: 999px;
+  background: var(--bg);
+  border: 1px solid var(--rule);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.timeline-dot--active {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--accent) 20%, transparent);
+}
+
+/* "Current role" badge in Experience section */
+.badge-accent {
+  border: 1px solid var(--accent);
+  background: color-mix(in oklch, var(--accent) 10%, transparent);
+  border-radius: 999px;
+  padding: 5px 10px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--ink-1);
+}
