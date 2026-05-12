@@ -1,0 +1,19 @@
+---
+import MonoLabel from './MonoLabel.astro';
+
+interface Props {
+  n:     string;
+  title: string;
+  sub:   string;
+}
+const { n, title, sub } = Astro.props;
+---
+<div class="flex items-baseline justify-between mb-7">
+  <div class="flex items-baseline gap-[18px]">
+    <MonoLabel>§ {n}</MonoLabel>
+    <h2 class="font-display text-[28px] tracking-[-0.02em] font-medium m-0 text-ink-1">
+      {title}
+    </h2>
+  </div>
+  <span class="font-mono text-[12px] text-ink-3">{sub}</span>
+</div>

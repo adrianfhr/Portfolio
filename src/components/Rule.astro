@@ -1,0 +1,7 @@
+---
+interface Props {
+  class?: string;
+}
+const { class: className } = Astro.props;
+---
+<div class:list={['h-px bg-rule w-full', className]}></div>

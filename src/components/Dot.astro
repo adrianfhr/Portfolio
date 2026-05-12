@@ -1,0 +1,15 @@
+---
+interface Props {
+  color?: string;
+}
+const { color = 'var(--accent)' } = Astro.props;
+---
+<!--
+  Sets --dot-color via inline style (only a CSS custom property, not a visual rule).
+  The actual background + box-shadow are handled by the .dot-indicator class in global.css,
+  which uses color-mix() referencing --dot-color — a pattern not expressible in Tailwind utilities.
+-->
+<span
+  class="dot-indicator inline-block w-[6px] h-[6px] rounded-full align-middle mr-2"
+  style={`--dot-color: ${color};`}
+></span>
