@@ -1,0 +1,66 @@
+---
+/**
+ * src/pages/index.astro — Main portfolio page
+ *
+ * Island hydration strategy:
+ *  - TopBar      → client:load    : sticky header needs immediate interactivity (email copy)
+ *  - ProjectCard → client:visible : each card hydrates only when it enters the viewport
+ *  - Experience  → client:visible : timeline nav requires useState; off-screen at load
+ *  - Footer      → client:load    : copy-email button should be ready before user scrolls down
+ *  - ChatBot     → client:idle    : non-critical; loads after the browser is idle
+ *  - TweaksPanel → client:idle    : debug/design tool; not needed at initial paint
+ *
+ * Static components (Hero, Stack, About, Writing, Work wrapper) ship zero JS.
+ */
+import Layout from '../layouts/Layout.astro';
+import TopBar      from '../components/TopBar';
+import Hero        from '../components/Hero.astro';
+import Work        from '../components/Work.astro';
+import Experience  from '../components/Experience';
+import Stack       from '../components/Stack.astro';
+import About       from '../components/About.astro';
+import Writing     from '../components/Writing.astro';
+import Footer      from '../components/Footer';
+import ChatBot     from '../components/ChatBot';
+import TweaksPanel from '../components/TweaksPanel';
+
+import { PROFILE } from '../data/portfolio';
+---
+
+<Layout
+  title={`${PROFILE.name} · AI Engineer Portfolio`}
+  description={PROFILE.blurb}
+>
+  <!--
+    TopBar is a React island (client:load) because it needs the clipboard API
+    on first interaction. All nav links and the email copy button require JS.
+  -->
+  <TopBar client:load name={PROFILE.name} email={PROFILE.email} />
+
+  <!-- Static Astro components — rendered at build time, zero client JS -->
+  <Hero    profile={PROFILE} />
+  <Work />
+
+  <!--
+    Experience is a React island (client:visible) — timeline navigation
+    requires useState for the active entry selector.
+  -->
+  <Experience client:visible />
+
+  <Stack />
+  <About />
+  <Writing />
+
+  <!--
+    Footer is client:load so the email copy button works before the user
+    has to scroll all the way down (JS is already on the page by then).
+  -->
+  <Footer client:load profile={PROFILE} />
+
+  <!--
+    ChatBot and TweaksPanel are deferred until the browser is idle.
+    Neither is needed for the above-the-fold experience.
+  -->
+  <ChatBot    client:idle />
+  <TweaksPanel client:idle />
+</Layout>
