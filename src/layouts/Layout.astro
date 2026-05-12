@@ -1,0 +1,57 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title       = 'Portfolio',
+  description = 'AI Engineer & Backend Infrastructure specialist.',
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+
+    <!-- Favicon placeholder -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!--
+      Theme initialisation — runs synchronously before first paint to prevent
+      a flash of wrong theme (FOWT). Reads localStorage, falls back to the OS
+      preference (prefers-color-scheme), and sets data-theme on <html>.
+      Must be is:inline so Astro doesn't defer or bundle it.
+    -->
+    <script is:inline>
+      (function () {
+        var stored = localStorage.getItem('theme');
+        var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        document.documentElement.setAttribute(
+          'data-theme',
+          stored ? stored : prefersDark ? 'dark' : 'light'
+        );
+      })();
+    </script>
+
+    <!-- image-slot Web Component — loads deferred, no blocking -->
+    <script is:inline src="/image-slot.js" defer></script>
+
+    <!-- Google Fonts — Geist + Newsreader + IBM Plex -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&family=Newsreader:ital,wght@0,400;0,500;1,400;1,500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:ital,wght@0,400;1,400&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
