@@ -1,0 +1,24 @@
+---
+import { PROJECTS } from '../data/portfolio';
+import SectionHead from './SectionHead.astro';
+import ProjectCard from './ProjectCard';
+
+/*
+ * Work renders ProjectCard as a React island with client:visible.
+ * Each card hydrates only when it enters the viewport, reducing initial JS.
+ * The first card (idx=0) starts expanded (open=true) because useState(idx===0)
+ * is the default — this is preserved correctly through SSR + hydration.
+ */
+---
+
+<section id="work" class="py-[60px] px-10 max-w-content mx-auto">
+  <SectionHead
+    n="01"
+    title="Selected work"
+    sub="Two systems I shipped end-to-end. Click to expand."
+  />
+
+  {PROJECTS.map((p, i) => (
+    <ProjectCard client:visible p={p} idx={i} />
+  ))}
+</section>
