@@ -1,0 +1,23 @@
+services:
+  portfolio:
+    build: .
+    restart: unless-stopped
+    # Port tidak di-expose ke host — hanya Caddy yang bisa akses via internal network
+
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    ports:
+      - "80:80"       # HTTP (redirect ke HTTPS)
+      - "443:443"     # HTTPS
+      - "443:443/udp" # HTTP/3 (QUIC)
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data       # SSL certificates (Let's Encrypt)
+      - caddy_config:/config   # Caddy runtime config
+    depends_on:
+      - portfolio
+
+volumes:
+  caddy_data:
+  caddy_config:
