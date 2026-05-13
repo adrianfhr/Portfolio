@@ -1,6 +1,3 @@
-Address: 157.10.161.40
-
-adrianfhr@server-belajar-dokploy:~/Portfolio$ cat docker-compose.yml
 services:
   # --- PORTFOLIO & CADDY ---
   portfolio:
