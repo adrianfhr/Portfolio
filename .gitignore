@@ -23,5 +23,6 @@ Thumbs.db
 .idea/
 
 # Personal files — kept locally, not in version control
-*.pdf
+# Only root-level PDFs ignored; public/cv.pdf is intentionally committed
+/*.pdf
 image.jpg

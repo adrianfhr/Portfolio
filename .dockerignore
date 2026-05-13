@@ -6,7 +6,7 @@ dist/
 .git/
 .gitignore
 *.md
-*.pdf
+/*.pdf
 *.log
 image.jpg
 .env*
