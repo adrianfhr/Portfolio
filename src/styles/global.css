@@ -154,6 +154,16 @@ html {
   box-shadow: 0 0 0 3px color-mix(in oklch, var(--accent) 20%, transparent);
 }
 
+/* Hides scrollbar on horizontally-scrollable mobile nav strips */
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
 /* "Current role" badge in Experience section */
 .badge-accent {
   border: 1px solid var(--accent);

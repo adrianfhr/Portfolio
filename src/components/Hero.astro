@@ -15,27 +15,39 @@ const stats = [
   { k: 'currently', v: 'AI Engineer', s: 'at Synapsis · Oct 2025'  },
   { k: 'education', v: 'B.Eng IST',   s: 'ITB · graduated 2025'    },
 ];
+
+/*
+ * Stats bar renders as a 2x2 grid on mobile and a single 4-col row on sm+.
+ * borderClass reproduces the divider that would come from `i > 0` in a
+ * single row, but split across the two breakpoints: index 2 starts a new
+ * row on mobile (no divider needed there) yet is still mid-row on sm+.
+ */
+const borderClass = (i: number) => {
+  if (i === 0) return '';
+  if (i % 2 === 0) return 'sm:border-l sm:border-rule';
+  return 'border-l border-rule';
+};
 ---
 
-<section class="py-24 pb-20 px-10 max-w-content mx-auto">
-  <!-- Main hero grid: bio left · portrait right -->
-  <div class="grid grid-cols-[minmax(0,1fr)_260px] gap-16 items-end">
+<section class="py-16 sm:py-24 pb-12 sm:pb-20 px-5 sm:px-10 max-w-content mx-auto">
+  <!-- Main hero grid: bio left · portrait right (stacked on mobile) -->
+  <div class="grid grid-cols-1 sm:grid-cols-[minmax(0,1fr)_260px] gap-8 sm:gap-16 items-start sm:items-end">
     <div>
       <MonoLabel>{profile.role}</MonoLabel>
 
-      <h1 class="font-display text-[clamp(52px,7vw,96px)] leading-[0.98] tracking-[-0.04em] font-medium mt-[18px] mb-6 text-ink-1">
+      <h1 class="font-display text-[clamp(40px,10vw,96px)] leading-[0.98] tracking-[-0.04em] font-medium mt-[18px] mb-6 text-ink-1">
         {profile.name.split(' ')[0]}.<br />
         <span class="font-serif italic font-normal text-ink-2">builds quiet</span>{' '}
         <span class="font-serif italic font-normal text-ink-2">infrastructure</span>
       </h1>
 
-      <p class="text-[19px] leading-[1.55] text-ink-2 max-w-[620px] [text-wrap:pretty] m-0">
+      <p class="text-[17px] sm:text-[19px] leading-[1.55] text-ink-2 max-w-[620px] [text-wrap:pretty] m-0">
         {profile.blurb}
       </p>
     </div>
 
     <!-- Portrait -->
-    <aside class="self-end">
+    <aside class="self-end w-full max-w-[280px] mx-auto sm:max-w-none sm:mx-0">
       <div class="relative w-full aspect-[3/4] overflow-hidden rounded-xl border border-rule">
         <Image
           src={portraitImg}
@@ -49,9 +61,9 @@ const stats = [
   </div>
 
   <!-- Stats bar -->
-  <div class="mt-20 grid grid-cols-4 border-t border-b border-rule">
+  <div class="mt-12 sm:mt-20 grid grid-cols-2 sm:grid-cols-4 border-t border-b border-rule">
     {stats.map((c, i) => (
-      <div class:list={['py-[22px] px-5', { 'border-l border-rule': i > 0 }]}>
+      <div class:list={['py-[22px] px-5', borderClass(i)]}>
         <MonoLabel>{c.k}</MonoLabel>
         <div class="text-[18px] text-ink-1 mt-2 tracking-[-0.01em]">{c.v}</div>
         <div class="text-[13px] text-ink-3 mt-1">{c.s}</div>

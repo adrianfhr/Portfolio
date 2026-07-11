@@ -91,8 +91,8 @@ export default function Footer({ profile }: Props) {
 
   return (
     <>
-      <footer className="mt-20 border-t border-rule bg-panel">
-        <div className="max-w-content mx-auto px-10 pt-[72px] pb-12 grid grid-cols-[minmax(0,1fr)_auto] gap-12 items-end">
+      <footer className="mt-12 sm:mt-20 border-t border-rule bg-panel">
+        <div className="max-w-content mx-auto px-5 sm:px-10 pt-12 sm:pt-[72px] pb-10 sm:pb-12 grid grid-cols-1 sm:grid-cols-[minmax(0,1fr)_auto] gap-8 sm:gap-12 items-start sm:items-end">
           {/* CTA */}
           <div>
             <span className="font-mono text-[11px] tracking-[0.08em] uppercase text-ink-3">
@@ -138,7 +138,7 @@ export default function Footer({ profile }: Props) {
           </div>
 
           {/* Colophon */}
-          <div className="font-mono text-[11px] text-ink-3 text-right">
+          <div className="font-mono text-[11px] text-ink-3 text-left sm:text-right">
             <div>built with astro · deployed on vps</div>
             <div className="mt-1">© 2026 {profile.name.toLowerCase()}</div>
             <div className="mt-1">last edit · 2026.05.13</div>

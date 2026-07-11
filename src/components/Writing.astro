@@ -3,18 +3,18 @@ import { WRITING } from '../data/portfolio';
 import SectionHead from './SectionHead.astro';
 ---
 
-<section id="writing" class="py-[60px] pb-10 px-10 max-w-content mx-auto">
+<section id="writing" class="py-10 sm:py-[60px] pb-6 sm:pb-10 px-5 sm:px-10 max-w-content mx-auto">
   <SectionHead n="05" title="Writing" sub="Notes, posts, postmortems" />
 
   <div class="border-t border-rule">
     {WRITING.map((w) => (
       <a
         href="#"
-        class="grid grid-cols-[120px_1fr_80px] gap-6 py-[18px] pr-1 pl-1 hover:pl-[14px] border-b border-rule no-underline text-inherit transition-[padding-left] duration-200 ease-[ease]"
+        class="grid grid-cols-1 sm:grid-cols-[120px_1fr_80px] gap-1 sm:gap-6 py-[18px] pr-1 pl-1 hover:pl-[14px] border-b border-rule no-underline text-inherit transition-[padding-left] duration-200 ease-[ease]"
       >
-        <span class="font-mono text-[12px] text-ink-3">{w.date}</span>
-        <span class="text-[16px] text-ink-1 tracking-[-0.005em]">{w.title}</span>
-        <span class="font-mono text-[11px] text-ink-3 text-right uppercase tracking-[0.06em]">
+        <span class="font-mono text-[12px] text-ink-3 order-2 sm:order-1">{w.date}</span>
+        <span class="text-[16px] text-ink-1 tracking-[-0.005em] order-1 sm:order-2">{w.title}</span>
+        <span class="font-mono text-[11px] text-ink-3 sm:text-right uppercase tracking-[0.06em] order-3">
           {w.tag}
         </span>
       </a>

@@ -24,11 +24,11 @@ function Dot() {
 
 function ExperienceDetail({ e }: { e: ExperienceItem }) {
   return (
-    <div className="border-l border-rule pl-10">
+    <div className="border-l border-rule pl-5 sm:pl-10">
       <div className="flex items-baseline justify-between gap-4 flex-wrap">
         <div>
           <MonoLabel>{e.type} · {e.duration}</MonoLabel>
-          <h3 className="font-display text-[32px] tracking-[-0.02em] font-medium mt-[10px] mb-1 text-ink-1">
+          <h3 className="font-display text-[24px] sm:text-[32px] tracking-[-0.02em] font-medium mt-[10px] mb-1 text-ink-1">
             {e.role}
           </h3>
           <div className="flex items-center gap-[10px] text-ink-2 text-[15px]">
@@ -79,13 +79,24 @@ const stats = [
   { k: 'team size today',    v: '5 engineers',  s: 'ML + backend'                   },
 ];
 
+/*
+ * Same 2x2-mobile / 1-row-desktop divider logic as Hero's stats bar:
+ * index 2 starts a new row on mobile (no divider needed) but is still
+ * mid-row on sm+, so its border only appears there.
+ */
+const borderClass = (i: number) => {
+  if (i === 0) return '';
+  if (i % 2 === 0) return 'sm:border-l sm:border-rule';
+  return 'border-l border-rule';
+};
+
 export default function Experience() {
   const [active, setActive] = useState(0);
 
   return (
-    <section id="experience" className="py-[60px] px-10 max-w-content mx-auto">
+    <section id="experience" className="py-10 sm:py-[60px] px-5 sm:px-10 max-w-content mx-auto">
       {/* Section head */}
-      <div className="flex items-baseline justify-between mb-7">
+      <div className="flex items-baseline justify-between mb-7 flex-wrap gap-2">
         <div className="flex items-baseline gap-[18px]">
           <MonoLabel>§ 02</MonoLabel>
           <h2 className="font-display text-[28px] tracking-[-0.02em] font-medium m-0 text-ink-1">
@@ -96,9 +107,9 @@ export default function Experience() {
       </div>
 
       {/* Quick stats strip */}
-      <div className="grid grid-cols-4 border-t border-b border-rule mb-10">
+      <div className="grid grid-cols-2 sm:grid-cols-4 border-t border-b border-rule mb-10">
         {stats.map((c, i) => (
-          <div key={c.k} className={`py-[22px] px-5${i > 0 ? ' border-l border-rule' : ''}`}>
+          <div key={c.k} className={`py-[22px] px-5 ${borderClass(i)}`}>
             <MonoLabel>{c.k}</MonoLabel>
             <div className="text-[18px] text-ink-1 mt-2 tracking-[-0.01em]">{c.v}</div>
             <div className="text-[13px] text-ink-3 mt-1">{c.s}</div>
@@ -107,7 +118,7 @@ export default function Experience() {
       </div>
 
       {/* Timeline */}
-      <div className="grid gap-12" style={{ gridTemplateColumns: '260px 1fr' }}>
+      <div className="grid gap-8 sm:gap-12 grid-cols-1 sm:[grid-template-columns:260px_1fr]">
         {/* Left rail */}
         <div className="relative">
           <div

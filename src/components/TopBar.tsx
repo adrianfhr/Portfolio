@@ -69,23 +69,23 @@ export default function TopBar({ name, email }: Props) {
 
   return (
     <header className="sticky top-0 z-10 topbar-glass border-b border-rule">
-      <div className="max-w-content mx-auto px-10 py-[14px] flex items-center justify-between font-mono text-[12px]">
+      <div className="max-w-content mx-auto px-5 sm:px-10 py-[14px] flex items-center gap-3 sm:justify-between font-mono text-[12px]">
         {/* Brand */}
-        <div className="flex items-center gap-[14px]">
+        <div className="flex items-center gap-[10px] sm:gap-[14px] shrink-0">
           <span className="font-semibold text-ink-1">
             {name.toLowerCase().replace(' ', '.')}
           </span>
-          <span className="text-ink-3">/</span>
-          <span className="text-ink-2">portfolio&apos;26</span>
+          <span className="text-ink-3 hidden sm:inline">/</span>
+          <span className="text-ink-2 hidden sm:inline">portfolio&apos;26</span>
         </div>
 
-        {/* Nav */}
-        <nav className="flex gap-[22px] text-ink-2">
+        {/* Nav — flexes/scrolls to fit on mobile, reverts to its natural width on sm+ */}
+        <nav className="flex gap-[14px] sm:gap-[22px] text-ink-2 flex-1 min-w-0 overflow-x-auto sm:flex-none sm:overflow-visible no-scrollbar">
           {(['work', 'experience', 'stack', 'about', 'writing'] as const).map((item) => (
             <a
               key={item}
               href={`#${item}`}
-              className="text-inherit no-underline transition-colors duration-150"
+              className="text-inherit no-underline transition-colors duration-150 shrink-0"
             >
               {item}
             </a>
@@ -93,7 +93,7 @@ export default function TopBar({ name, email }: Props) {
         </nav>
 
         {/* Right actions */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3 shrink-0">
           {/*
             suppressHydrationWarning: server renders isDark=false, client may
             immediately correct it. React is told to ignore this one mismatch.
@@ -102,19 +102,20 @@ export default function TopBar({ name, email }: Props) {
             onClick={toggleTheme}
             aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
             suppressHydrationWarning
-            className="bg-transparent border border-rule rounded-full w-[28px] h-[28px] text-ink-2 cursor-pointer inline-flex items-center justify-center transition-colors duration-150"
+            className="bg-transparent border border-rule rounded-full w-[28px] h-[28px] text-ink-2 cursor-pointer inline-flex items-center justify-center transition-colors duration-150 shrink-0"
           >
             {isDark ? <MoonIcon /> : <SunIcon />}
           </button>
 
-          {/* Email copy */}
+          {/* Email copy — shows the full address on sm+, a short label on mobile */}
           <button
             onClick={copyEmail}
             title="Copy email"
-            className="bg-transparent border border-rule rounded-full px-3 py-[6px] font-mono text-[12px] text-ink-2 cursor-pointer inline-flex items-center"
+            className="bg-transparent border border-rule rounded-full px-3 py-[6px] font-mono text-[12px] text-ink-2 cursor-pointer inline-flex items-center whitespace-nowrap"
           >
             <Dot />
-            {copied ? 'copied' : email}
+            <span className="hidden sm:inline">{copied ? 'copied' : email}</span>
+            <span className="sm:hidden">{copied ? 'copied' : 'email'}</span>
           </button>
         </div>
       </div>

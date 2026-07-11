@@ -8,7 +8,7 @@ interface Props {
 }
 const { n, title, sub } = Astro.props;
 ---
-<div class="flex items-baseline justify-between mb-7">
+<div class="flex items-baseline justify-between flex-wrap gap-x-4 gap-y-1 mb-7">
   <div class="flex items-baseline gap-[18px]">
     <MonoLabel>§ {n}</MonoLabel>
     <h2 class="font-display text-[28px] tracking-[-0.02em] font-medium m-0 text-ink-1">

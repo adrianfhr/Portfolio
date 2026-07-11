@@ -20,22 +20,22 @@ export default function ProjectCard({ p, idx }: Props) {
 
   return (
     <article
-      className="border-b border-rule py-9 grid grid-cols-[88px_minmax(0,1fr)_320px] gap-10 items-start cursor-pointer"
+      className="border-b border-rule py-6 sm:py-9 grid grid-cols-1 sm:grid-cols-[88px_minmax(0,1fr)_320px] gap-4 sm:gap-10 items-start cursor-pointer"
       onClick={() => setOpen((o) => !o)}
     >
       {/* ── Index column ── */}
-      <div>
+      <div className="flex items-baseline gap-2 sm:block">
         <MonoLabel>{p.id}</MonoLabel>
-        <div className="mt-[6px] font-mono text-[12px] text-ink-3">{p.year}</div>
+        <div className="sm:mt-[6px] font-mono text-[12px] text-ink-3">{p.year}</div>
       </div>
 
       {/* ── Content column ── */}
       <div>
         <div className="flex items-baseline gap-[14px] flex-wrap">
-          <h3 className="font-display text-[34px] tracking-[-0.02em] font-medium m-0 text-ink-1">
+          <h3 className="font-display text-[26px] sm:text-[34px] tracking-[-0.02em] font-medium m-0 text-ink-1">
             {p.name}
           </h3>
-          <span className="font-serif italic text-[22px] text-ink-2">— {p.tagline}</span>
+          <span className="font-serif italic text-[18px] sm:text-[22px] text-ink-2">— {p.tagline}</span>
         </div>
 
         <div className="mt-2 font-mono text-[12px] text-ink-3">{p.role}</div>
