@@ -44,7 +44,7 @@ function ExperienceDetail({ e }: { e: ExperienceItem }) {
         )}
       </div>
 
-      <p className="mt-[18px] text-[17px] leading-[1.55] text-ink-2 max-w-[640px] [text-wrap:pretty]">
+      <p className="mt-[18px] text-[17px] leading-[1.55] text-ink-2 max-w-[640px] [text-wrap:pretty] text-justify">
         {e.summary}
       </p>
 

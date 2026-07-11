@@ -40,7 +40,7 @@ export default function ProjectCard({ p, idx }: Props) {
 
         <div className="mt-2 font-mono text-[12px] text-ink-3">{p.role}</div>
 
-        <p className="mt-4 text-[16px] leading-[1.6] text-ink-2 max-w-[620px] [text-wrap:pretty]">
+        <p className="mt-4 text-[16px] leading-[1.6] text-ink-2 max-w-[620px] [text-wrap:pretty] text-justify">
           {p.summary}
         </p>
 
