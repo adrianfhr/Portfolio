@@ -1,9 +1,0 @@
-# Ganti dengan domain kamu
-yourdomain.com {
-    reverse_proxy portfolio:80
-}
-
-# Kalau mau handle www juga — uncomment blok ini:
-# www.yourdomain.com {
-#     redir https://yourdomain.com{uri} permanent
-# }
